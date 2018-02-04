@@ -14,7 +14,7 @@ public class LinkedList2 {
 	 *   	- NO RANDOM ACCESS 
 	 *   	- not synchronized
 	 *   	- we can remove items very efficiently / O(1) when removing from the beginning / end
-	 *   	- no sequential access ! if we want to find an tiem we have to iterate through
+	 *   	- no sequential access ! if we want to find an item we have to iterate through
 	 *   		the list until we find it / O(N)
 	 *   
 	 *   	- so we should use a LinkedList for remove-heavy applications !
