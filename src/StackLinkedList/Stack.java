@@ -17,7 +17,7 @@ public class Stack<T extends Comparable<T>> {
 			this.root.setNextNode(oldRoot);
 		}
 	}
-	
+
 	// O(1)
 	public T peek() {
 		return this.root.getData();
