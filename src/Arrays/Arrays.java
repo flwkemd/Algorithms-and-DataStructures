@@ -2,7 +2,7 @@ package Arrays;
 
 public class Arrays {
 	public static void main(String[] args) {
-		
+		 
 		int[] nums = new int[5];
 		int[] nums2 = new int[10];
 		
