@@ -1,6 +1,6 @@
-package LinkedList;
+package Collections;
 
-public class LinkedList2 {
+public class LinkedList {
 
 	/*
 	 *  It is another implementation of the List interface
