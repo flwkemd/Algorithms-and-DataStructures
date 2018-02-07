@@ -1,37 +1,37 @@
 package AvlTree;
 
-public class Node {
+public class Node<T> {
 
-	private int data;
-	private Node leftNode;
-	private Node rightNode;
+	private T data;
+	private Node<T> leftNode;
+	private Node<T> rightNode;
 	private int height;
 	
-	public Node(int data) {
+	public Node(T data) {
 		this.data = data;
 	}
 
-	public int getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(int data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 
-	public Node getLeftNode() {
+	public Node<T> getLeftNode() {
 		return leftNode;
 	}
 
-	public void setLeftNode(Node leftNode) {
+	public void setLeftNode(Node<T> leftNode) {
 		this.leftNode = leftNode;
 	}
 
-	public Node getRightNode() {
+	public Node<T> getRightNode() {
 		return rightNode;
 	}
 
-	public void setRightNode(Node rightNode) {
+	public void setRightNode(Node<T> rightNode) {
 		this.rightNode = rightNode;
 	}
 

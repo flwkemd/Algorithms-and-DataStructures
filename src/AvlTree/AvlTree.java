@@ -1,25 +1,25 @@
 package AvlTree;
 
-public class AvlTree implements Tree{
+public class AvlTree<T extends Comparable<T>> implements Tree<T>{
 
-	private Node root;
+	private Node<T> root;
 	
 	@Override
-	public void insert(int data) {
+	public void insert(T data) {
 		root = insert(root, data);
 	}
 
 	@Override
-	public void delete(int data) {
+	public void delete(T data) {
 		root = delete(root, data);
 	}
 	
-	private Node insert(Node node, int data) {
+	private Node<T> insert(Node<T> node, T data) {
 		if(node == null) {
-			return new Node(data);
+			return new Node<T>(data);
 		}
 		
-		if(data < node.getData()) {
+		if(data.compareTo(node.getData()) < 0) {
 			node.setLeftNode(insert(node.getLeftNode(), data));
 		}else {
 			node.setRightNode(insert(node.getRightNode(), data));
@@ -32,28 +32,28 @@ public class AvlTree implements Tree{
 		return node;
 	}
 
-	private Node settleViolation(int data, Node node) {
+	private Node<T> settleViolation(T data, Node<T> node) {
 
 		int balance = getBalance(node);
 		
 		// this is the Case I ! left-left
-		if(balance > 1 && data < node.getLeftNode().getData()) {
+		if(balance > 1 && data.compareTo(node.getLeftNode().getData()) < 0) {
 			return rightRotation(node);
 		}
 
 		// this is the Case II ! right-right
-		if(balance < -1 && data > node.getRightNode().getData()) {
+		if(balance < -1 && data.compareTo(node.getRightNode().getData()) > 0) {
 			return leftRotation(node);
 		}
 		
 		// left right situation
-		if(balance > 1 && data > node.getLeftNode().getData()) {
+		if(balance > 1 && data.compareTo(node.getLeftNode().getData()) > 0){
 			node.setLeftNode(leftRotation(node.getLeftNode()));
 			return rightRotation(node);
 		}
 
 		// right left situation
-		if(balance < -1 && data < node.getRightNode().getData()) {
+		if(balance < -1 && data.compareTo(node.getRightNode().getData()) < 0) {
 			node.setRightNode(rightRotation(node.getRightNode()));
 			return leftRotation(node);
 		}
@@ -61,11 +61,11 @@ public class AvlTree implements Tree{
 		return node;
 	}
 
-	private Node rightRotation(Node node) {
+	private Node<T> rightRotation(Node<T> node) {
 		System.out.println("Rotating to the right on node: "+node);
 		
-		Node tempLeftNode = node.getLeftNode();
-		Node t = tempLeftNode.getRightNode();
+		Node<T> tempLeftNode = node.getLeftNode();
+		Node<T> t = tempLeftNode.getRightNode();
 		
 		tempLeftNode.setRightNode(node);
 		node.setLeftNode(t);
@@ -76,11 +76,11 @@ public class AvlTree implements Tree{
 		return tempLeftNode;
 	}
 
-	private Node leftRotation(Node node) {
+	private Node<T> leftRotation(Node<T> node) {
 		System.out.println("Rotating to the left on node: "+node);
 		
-		Node tempRightNode = node.getRightNode();
-		Node t = tempRightNode.getLeftNode();
+		Node<T> tempRightNode = node.getRightNode();
+		Node<T> t = tempRightNode.getLeftNode();
 		
 		tempRightNode.setLeftNode(node);
 		node.setRightNode(t);
@@ -91,7 +91,7 @@ public class AvlTree implements Tree{
 		return tempRightNode;
 	}
 	
-	private int height(Node node) {
+	private int height(Node<T> node) {
 		if(node == null) {
 			return -1;
 		}
@@ -99,7 +99,7 @@ public class AvlTree implements Tree{
 		return node.getHeight();
 	}
 
-	private int getBalance(Node node) {
+	private int getBalance(Node<T> node) {
 		if(node == null) {
 			return 0;
 		}
@@ -112,7 +112,7 @@ public class AvlTree implements Tree{
 		inOrderTraversal(root);
 	}
 
-	private void inOrderTraversal(Node node) {
+	private void inOrderTraversal(Node<T> node) {
 		if(node.getLeftNode() != null)
 			inOrderTraversal(node.getLeftNode());
 		
@@ -122,14 +122,14 @@ public class AvlTree implements Tree{
 			inOrderTraversal(node.getRightNode());
 	}
 
-	private Node delete(Node node, int data) {
+	private Node<T> delete(Node<T> node, T data) {
 		if(node == null)
 			return node;
 		
 		//first we have to look for the node we want to get rid of
-		if(data < node.getData()) { // data smaller than given node's data -> go to the left recursively
+		if(data.compareTo(node.getData()) < 0) { // data smaller than given node's data -> go to the left recursively
 			node.setLeftNode(delete(node.getLeftNode(),data));
-		}else if(data > node.getData()) { // data greater than given node's data -> go to right recursively
+		}else if(data.compareTo(node.getData()) > 0) { // data greater than given node's data -> go to right recursively
 			node.setRightNode(delete(node.getRightNode(), data));
 		}else {	// we have found the node we want to remove
 			
@@ -140,19 +140,19 @@ public class AvlTree implements Tree{
 			
 			if(node.getLeftNode() == null) {
 				System.out.println("Removing the right child...");
-				Node tempNode = node.getRightNode();
+				Node<T> tempNode = node.getRightNode();
 				node = null;
 				return tempNode;
 			}else if (node.getRightNode() == null) {
 				System.out.println("Removing the left child...");
-				Node tempNode = node.getLeftNode();
+				Node<T> tempNode = node.getLeftNode();
 				node = null;
 				return tempNode;
 			}
 			
 			// this is the node with two children case
 			System.out.println("Removing item with two children...");
-			Node tempNode = getPredecessor(node.getLeftNode());
+			Node<T> tempNode = getPredecessor(node.getLeftNode());
 			
 			node.setData(tempNode.getData());
 			node.setLeftNode(delete(node.getLeftNode(), tempNode.getData()));
@@ -164,7 +164,7 @@ public class AvlTree implements Tree{
 		return settleDeletion(node);
 	}
 	
-	private Node settleDeletion(Node node) {
+	private Node<T> settleDeletion(Node<T> node) {
 		int balance = getBalance(node);
 		
 		//OK, we know the tree is left heavy BUT it can be left-right heavy or left-left heavy
@@ -189,13 +189,12 @@ public class AvlTree implements Tree{
 		return node;
 	}
 	
-	private Node getPredecessor(Node node) {
-		Node predecessor = node;
+	private Node<T> getPredecessor(Node<T> node) {
+		Node<T> predecessor = node;
 		
 		while(predecessor.getRightNode() != null)
 			predecessor = predecessor.getRightNode();
 	
 		return predecessor;
 	}
-	
 }

@@ -1,7 +1,7 @@
 package AvlTree;
 
-public interface Tree {
-	public void insert(int data);
+public interface Tree<T> {
+	public void insert(T data);
 	public void traverse();
-	public void delete(int data);
+	public void delete(T data);
 }

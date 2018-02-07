@@ -3,7 +3,7 @@ package AvlTree;
 public class App {
 	public static void main(String[] args) {
 		
-		Tree avl = new AvlTree();
+		Tree<String> avl = new AvlTree<>();
 		
 //		avl.insert(1); // left rotate
 //		avl.insert(2);
@@ -28,13 +28,17 @@ public class App {
 //		avl.insert(50);
 //		avl.insert(60);
 
-		avl.insert(10);
-		avl.insert(15);
-		avl.insert(5);
-		avl.insert(14);
+//		avl.insert(10);
+//		avl.insert(15);
+//		avl.insert(5);
+//		avl.insert(14);
 		
-		avl.delete(5);
+//		avl.delete(5);
 		
+		avl.insert("a");
+		avl.insert("c");
+		avl.insert("b");
+
 		avl.traverse();
 	}
 }
